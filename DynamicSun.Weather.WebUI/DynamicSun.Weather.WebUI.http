@@ -1,0 +1,6 @@
+@DynamicSun.Weather.WebUI_HostAddress = http://localhost:5143
+
+GET {{DynamicSun.Weather.WebUI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
