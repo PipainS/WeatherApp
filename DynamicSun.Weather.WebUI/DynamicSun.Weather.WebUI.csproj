@@ -7,14 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="7.3.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DynamicSun.Weather.Application\DynamicSun.Weather.Application.csproj" />
+    <ProjectReference Include="..\DynamicSun.Weather.Domain\DynamicSun.Weather.Domain.csproj" />
     <ProjectReference Include="..\DynamicSun.Weather.Infrastructure\DynamicSun.Weather.Infrastructure.csproj" />
   </ItemGroup>
 

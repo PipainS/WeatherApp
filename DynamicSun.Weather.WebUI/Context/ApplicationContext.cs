@@ -1,4 +1,7 @@
-﻿using DynamicSun.Weather.Infrastructure.Persistence;
+﻿using DynamicSun.Weather.Application.Mapping;
+using DynamicSun.Weather.Application.Services;
+using DynamicSun.Weather.Application.Services.Interfaces;
+using DynamicSun.Weather.Infrastructure.Persistence;
 using DynamicSun.Weather.Infrastructure.Persistence.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,6 +30,8 @@ namespace DynamicSun.Weather.WebUI.Context
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
 
+            services.AddAutoMapper(typeof(MappingProfile));
+
 
             // Подключение к PostgreSQL
             services.AddDbContext<WeatherDbContext>(options =>
@@ -50,7 +55,7 @@ namespace DynamicSun.Weather.WebUI.Context
             //services.AddScoped<ILogisticsService, LogisticsService>();
             //services.AddScoped<IRfidTagService, RfidTagService>();
             //services.AddScoped<IProductService, ProductService>();
-            //services.AddScoped<ISupplierService, SupplierService>();
+            services.AddScoped<IWeatherService, WeatherService>();
         }
 
         public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)

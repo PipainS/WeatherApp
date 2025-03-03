@@ -11,7 +11,7 @@ namespace DynamicSun.Weather.Infrastructure.Persistence
         {
         }
 
-        public DbSet<WeatherData> WeatherDatas { get; set; }
+        //public DbSet<WeatherData> WeatherDatas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
