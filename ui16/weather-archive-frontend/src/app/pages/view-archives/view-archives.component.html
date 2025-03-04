@@ -1,0 +1,63 @@
+<div class="archives-page-container">
+    <!-- Шапка (заголовок + переключатель) -->
+    <div class="header d-flex justify-content-between align-items-center mb-3">
+      <h2 class="page-title mb-0">Архивы погодных условий в Москве</h2>
+      
+      <!-- Переключатель (по месяцам / по годам) -->
+      <div class="toggle-switch btn-group" role="group" aria-label="Archive toggle">
+        <button
+          type="button"
+          class="btn"
+          [class.active]="activeTab === 'months'"
+          (click)="selectTab('months')">
+          По месяцам
+        </button>
+        <button
+          type="button"
+          class="btn"
+          [class.active]="activeTab === 'years'"
+          (click)="selectTab('years')">
+          По годам
+        </button>
+      </div>
+    </div>
+  
+    <!-- Контейнер для списка архивов (с белым фоном и закруглёнными углами) -->
+    <div class="archives-content p-4">
+      <!-- Если выбран режим "По месяцам" -->
+      <div class="archives-list" *ngIf="activeTab === 'months'">
+        <div class="archive-item" *ngFor="let item of pagedData">
+          <h5>{{ item.month }} {{ item.year }}</h5>
+          <p>Данные о погоде за {{ item.month }} {{ item.year }}.</p>
+        </div>
+      </div>
+  
+      <!-- Если выбран режим "По годам" -->
+      <div class="archives-list" *ngIf="activeTab === 'years'">
+        <div class="archive-item" *ngFor="let item of pagedData">
+          <h5>{{ item.year }}</h5>
+          <p>Данные о погоде за {{ item.year }} год.</p>
+        </div>
+      </div>
+  
+      <!-- Пагинация (круглые кнопки + номер страницы) -->
+      <div class="pagination-container d-flex justify-content-end align-items-center mt-4">
+        <button
+          class="btn btn-light rounded-circle me-3"
+          [disabled]="currentPage === 1"
+          (click)="changePage(currentPage - 1)">
+          <i class="bi bi-chevron-left"></i>
+        </button>
+  
+        <span class="page-number">{{ currentPage }}</span>
+  
+        <button
+          class="btn btn-light rounded-circle ms-3"
+          [disabled]="currentPage === totalPages"
+          (click)="changePage(currentPage + 1)">
+          <i class="bi bi-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  
