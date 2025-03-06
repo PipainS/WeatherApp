@@ -8,6 +8,6 @@ export interface WeatherData {
   windSpeed?: number;
   cloudiness?: number;
   cloudBaseHeight: number;
-  visibility?: number;
+  visibility?: string;
   weatherPhenomena?: string;
 }

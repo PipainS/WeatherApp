@@ -63,7 +63,8 @@ export class DayDetailComponent extends BaseComponent implements OnInit {
     if (error?.response) {
       t.showResponseError(error.response);
     } else {
-      t.modalService.showModal('Ошибка', 'Произошла ошибка при загрузке данных. Пожалуйста, попробуйте позже.', 'ОК');
+      t.modalService.showModal('Ошибка', 
+        'Произошла ошибка при загрузке данных. Возможно записи о погоде за выбранный день отсутствуют. Пожалуйста, попробуйте позже.', 'ОК');
     }
   }
 }

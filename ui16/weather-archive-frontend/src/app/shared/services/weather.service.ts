@@ -18,7 +18,7 @@ export class WeatherService {
   constructor(private http: HttpClient) {}
 
   getAvailableDates(): Observable<WeatherDateModel[]> {
-    return this.http.get<DataResponse<WeatherDateModel[]>>(`${baseUrl}/dates`)
+    return this.http.get<DataResponse<WeatherDateModel[]>>(`${baseUrl}/getAvailableDates`)
       .pipe(
         map(response => {
           if (isValid(response) && response.data) {
@@ -33,7 +33,7 @@ export class WeatherService {
   }
 
   getWeatherByDay(year: number, month: number, day: number): Observable<WeatherData[]> {
-    return this.http.get<DataResponse<WeatherData[]>>(`${baseUrl}/day/${year}/${month}/${day}`)
+    return this.http.get<DataResponse<WeatherData[]>>(`${baseUrl}/getWeatherByDay/${year}/${month}/${day}`)
       .pipe(
         map(response => {
           if (isValid(response) && response.data) {

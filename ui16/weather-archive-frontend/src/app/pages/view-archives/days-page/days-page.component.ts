@@ -54,10 +54,13 @@ export class DaysPageComponent implements OnInit {
       this.loadDays();
     }
   }
-  
 
   goToDayDetail(day: Date): void {
-    const formattedDate = day.toISOString().split('T')[0];
-    this.router.navigate(['/day-detail', formattedDate]);
+    // Используем локальные компоненты даты вместо UTC
+    const year = day.getFullYear();
+    const month = (day.getMonth() + 1).toString().padStart(2, '0'); // Месяцы 0-11
+    const date = day.getDate().toString().padStart(2, '0');
+    
+    this.router.navigate(['/day-detail', `${year}-${month}-${date}`]);
   }
 }

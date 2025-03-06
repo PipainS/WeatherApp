@@ -18,6 +18,6 @@ export class WeatherArchiveService {
       formData.append('archives', file, file.name);
     });
 
-    return this.http.post<DataResponse<boolean>>(`${baseUrl}/upload`, formData);
+    return this.http.post<DataResponse<boolean>>(`${baseUrl}/uploadWeatherArchives`, formData);
   }
 }
