@@ -2,39 +2,39 @@
 {
     public class WeatherDataModel
     {
-        public WeatherDataModel() { }
+        public WeatherDataModel() { } // for mapper
 
-        // Объединяем дату и время в одно поле для удобства
+        // Combine date and time into one field for convenience
         public DateTime WeatherDateTime { get; set; }
 
-        // Температура воздуха (°C)
+        // Air temperature (°C)
         public double Temperature { get; set; }
 
-        // Относительная влажность воздуха (%)
-        public int RelativeHumidity { get; set; }
+        // Relative air humidity (%)
+        public double RelativeHumidity { get; set; }
 
-        // Точка росы (°C)
+        // Dew point (°C)
         public double DewPoint { get; set; }
 
-        // Атмосферное давление (мм рт.ст.)
-        public int AtmosphericPressure { get; set; }
+        // Atmospheric pressure (mm Hg)
+        public double AtmosphericPressure { get; set; }
 
-        // Направление ветра (например, "З,ЮЗ" или "штиль")
+        // Wind direction (e.g., "W,SW" or "calm")
         public string WindDirection { get; set; }
 
-        // Скорость ветра (м/с)
+        // Wind speed (m/s)
         public double WindSpeed { get; set; }
 
-        // Облачность (%)
-        public int Cloudiness { get; set; }
+        // Cloudiness (%)
+        public double Cloudiness { get; set; }
 
-        // Высота облачности (м) – в метрах
-        public int CloudBaseHeight { get; set; }
+        // Cloud base height (m) – in meters
+        public double CloudBaseHeight { get; set; }
 
-        // Видимость (VV) – в метрах; может отсутствовать, поэтому делаем поле nullable
-        public int? Visibility { get; set; }
+        // Visibility (VV) – in meters; may be null, so making the field nullable
+        public string? Visibility { get; set; }
 
-        // Погодные явления (например, "Дымка")
+        // Weather phenomena (e.g., "Haze")
         public string WeatherPhenomena { get; set; }
     }
 }

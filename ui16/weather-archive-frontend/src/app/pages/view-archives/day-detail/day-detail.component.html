@@ -1,0 +1,69 @@
+<div class="day-detail-container">
+  <div class="header mb-3">
+    <h2 class="page-title">Детали дня: {{ selectedDate | date:'dd MMMM yyyy' }}</h2>
+  </div>
+
+  <div *ngIf="weatherData && weatherData.length > 0; else noData" class="weather-records">
+    <div *ngFor="let record of weatherData" class="weather-card card mb-3">
+      <div class="card-body">
+        <div class="record-header d-flex justify-content-between align-items-center mb-3">
+          <h5 class="card-title">{{ record.weatherDateTime | date:'HH:mm' }}</h5>
+          <span class="status-icon">
+            <i class="bi bi-info-circle"></i>
+          </span>
+        </div>
+        <!-- Список параметров с иконками -->
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item d-flex align-items-center">
+            <i class="bi bi-thermometer-half me-2"></i>
+            <strong>{{ 'Температура:' }}</strong> {{ record.temperature !== null ? record.temperature : 'Данные не найдены' }} °C
+          </li>
+          <li class="list-group-item d-flex align-items-center">
+            <i class="bi bi-droplet me-2"></i>
+            <strong>{{ 'Влажность:' }}</strong> {{ record.relativeHumidity !== null ? record.relativeHumidity : 'Данные не найдены' }}%
+          </li>
+          <li class="list-group-item d-flex align-items-center">
+            <i class="bi bi-water me-2"></i>
+            <strong>{{ 'Точка росы:' }}</strong> {{ record.dewPoint !== null ? record.dewPoint : 'Данные не найдены' }} °C
+          </li>
+          <li class="list-group-item d-flex align-items-center">
+            <i class="bi bi-speedometer2 me-2"></i>
+            <strong>{{ 'Давление:' }}</strong> {{ record.atmosphericPressure !== null ? record.atmosphericPressure : 'Данные не найдены' }} мм рт. ст.
+          </li>
+          <li class="list-group-item d-flex align-items-center" *ngIf="record.windDirection">
+            <i class="bi bi-wind me-2"></i>
+            <strong>{{ 'Ветер:' }}</strong> {{ record.windDirection || 'Данные не найдены' }}
+          </li>
+          <li class="list-group-item d-flex align-items-center" *ngIf="record.windSpeed !== null">
+            <i class="bi bi-wind me-2"></i>
+            <strong>{{ 'Скорость ветра:' }}</strong> {{ record.windSpeed !== null ? record.windSpeed : 'Данные не найдены' }} м/с
+          </li>
+          <li class="list-group-item d-flex align-items-center" *ngIf="record.cloudiness !== null">
+            <i class="bi bi-cloud me-2"></i>
+            <strong>{{ 'Облачность:' }}</strong> {{ record.cloudiness !== null ? record.cloudiness : 'Данные не найдены' }}%
+          </li>
+          <li class="list-group-item d-flex align-items-center">
+            <i class="bi bi-cloud-arrow-up me-2"></i>
+            <strong>{{ 'Высота облачности:' }}</strong> {{ record.cloudBaseHeight !== null ? record.cloudBaseHeight : 'Данные не найдены' }} м
+          </li>
+          <li class="list-group-item d-flex align-items-center" *ngIf="record.visibility !== null">
+            <i class="bi bi-eye me-2"></i>
+            <strong>{{ 'Видимость:' }}</strong> {{ record.visibility !== null ? record.visibility : 'Данные не найдены' }} м
+          </li>
+          <li class="list-group-item d-flex align-items-center" *ngIf="record.weatherPhenomena">
+            <i class="bi bi-cloud-fog2 me-2"></i>
+            <strong>{{ 'Явления:' }}</strong> {{ record.weatherPhenomena || 'Данные не найдены' }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noData>
+    <div class="d-flex flex-column align-items-center justify-content-center p-5">
+      <i class="bi bi-info-circle-fill" style="font-size: 3rem; color: #6c757d;"></i>
+      <p class="mt-3 h5 text-muted">Записи о погоде за выбранный день отсутствуют.</p>
+      <p class="text-muted">Пожалуйста, выберите другую дату или попробуйте позже.</p>
+    </div>
+  </ng-template>
+</div>

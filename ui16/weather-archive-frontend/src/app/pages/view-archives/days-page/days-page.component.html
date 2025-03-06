@@ -1,0 +1,32 @@
+<div class="days-page-container">
+  <div class="header mb-3">
+    <h2 class="page-title mb-0"> {{ 'Дни погодных условий в Москве' }} </h2>
+  </div>
+
+  <div class="days-content p-4">
+    <div class="days-list">
+      <div class="day-item" *ngFor="let day of days">
+        <div class="day-header d-flex justify-content-between align-items-center" (click)="goToDayDetail(day)">
+          <h5 class="mb-0">{{ day | date:'dd MMMM yyyy' }}</h5>
+          <i class="bi bi-chevron-right"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="pagination-container d-flex justify-content-end align-items-center mt-4">
+      <button
+        class="btn btn-light rounded-circle me-3"
+        [disabled]="pagination.currentPage === 1"
+        (click)="changePage(pagination.currentPage - 1)">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+      <span class="page-number">{{ pagination.currentPage }}</span>
+      <button
+        class="btn btn-light rounded-circle ms-3"
+        [disabled]="pagination.currentPage === pagination.totalPages"
+        (click)="changePage(pagination.currentPage + 1)">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+</div>

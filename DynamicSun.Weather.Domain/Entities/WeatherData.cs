@@ -4,37 +4,37 @@ namespace DynamicSun.Weather.Domain.Entities
 {
     public class WeatherData : PersistentObject
     {
-        // Объединяем дату и время в одно поле для удобства
+        // Combine date and time into one field for convenience
         public DateTime WeatherDateTime { get; set; }
 
-        // Температура воздуха (°C)
+        // Air temperature (°C)
         public double Temperature { get; set; }
 
-        // Относительная влажность воздуха (%)
-        public int RelativeHumidity { get; set; }
+        // Relative humidity (%)
+        public double RelativeHumidity { get; set; }
 
-        // Точка росы (°C)
+        // Dew point (°C)
         public double DewPoint { get; set; }
 
-        // Атмосферное давление (мм рт.ст.)
-        public int AtmosphericPressure { get; set; }
+        // Atmospheric pressure (mm Hg)
+        public double AtmosphericPressure { get; set; }
 
-        // Направление ветра (например, "З,ЮЗ" или "штиль")
-        public string WindDirection { get; set; }
+        // Wind direction (e.g., "W, SW" or "calm")
+        public string? WindDirection { get; set; }
 
-        // Скорость ветра (м/с)
-        public double WindSpeed { get; set; }
+        // Wind speed (m/s)
+        public double? WindSpeed { get; set; }
 
-        // Облачность (%)
-        public int Cloudiness { get; set; }
+        // Cloudiness (%)
+        public double? Cloudiness { get; set; }
 
-        // Высота облачности (h) – в метрах
-        public int CloudBaseHeight { get; set; }
+        // Cloud base height (h) – in meters
+        public double CloudBaseHeight { get; set; }
 
-        // Видимость (VV) – в метрах; иногда может отсутствовать, поэтому делаем поле nullable
-        public int? Visibility { get; set; }
+        // Visibility (VV) – in meters; it may sometimes be absent, so the field is nullable
+        public string? Visibility { get; set; }
 
-        // Погодные явления (например, "Дымка")
-        public string WeatherPhenomena { get; set; }
+        // Weather phenomena (e.g., "Haze")
+        public string? WeatherPhenomena { get; set; }
     }
 }

@@ -1,0 +1,42 @@
+.main-header {
+    background-color: var(--primary-bg-color);
+    border-bottom: 1px solid var(--light-gray);
+
+    .logo {
+        letter-spacing: 2px;
+        color: var(--dark-gray);
+    }
+
+    .nav-link {
+        position: relative;
+        text-decoration: none;
+        color: var(--dark-gray);
+        font-size: 1rem;
+        transition: color 0.2s ease;
+
+        &:hover {
+        color: var(--dark-gray); 
+        &::after {
+            width: 100%; 
+        }
+        }
+
+        &::after {
+        content: "";
+        position: absolute;
+        bottom: -4px; 
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--delete-red);
+        transition: width 0.2s ease;
+        }
+
+        &.active {
+        color: var(--dark-gray);
+        &::after {
+            width: 100%;
+        }
+        }
+    }
+}

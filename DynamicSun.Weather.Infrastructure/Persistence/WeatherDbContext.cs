@@ -1,31 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using DynamicSun.Weather.Domain.Entities;
 using DynamicSun.Weather.Infrastructure.Persistence.Configurations;
+using DynamicSun.Weather.Application.Utils;
 
 namespace DynamicSun.Weather.Infrastructure.Persistence
 {
-    public class WeatherDbContext : AppDbContext
+    public class WeatherDbContext(DbContextOptions<WeatherDbContext> options) : AppDbContext(options)
     {
-        public WeatherDbContext(DbContextOptions<WeatherDbContext> options)
-            : base(options)
-        {
-        }
-
-        //public DbSet<WeatherData> WeatherDatas { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //ArgumentChecker.NotNull(modelBuilder, nameof(modelBuilder)); // Проверяем, что modelBuilder не null
+            ArgumentChecker.NotNull(modelBuilder, nameof(modelBuilder));
 
-            modelBuilder.HasDefaultSchema("public"); // Устанавливаем схему для PostgreSQL
+            modelBuilder.HasDefaultSchema("public");
 
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.ApplyConfiguration(new WeatherDataConfiguration()); // Добавляем нашу конфигурацию
-            // Применяем конфигурации сущностей
-            //modelBuilder.ApplyConfiguration(new WeatherConfiguration());
-            //modelBuilder.ApplyConfiguration(new CityConfiguration());
+            modelBuilder.ApplyConfiguration(new WeatherDataConfiguration());
         }
-
     }
 }

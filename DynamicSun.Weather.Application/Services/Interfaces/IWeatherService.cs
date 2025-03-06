@@ -5,6 +5,8 @@ namespace DynamicSun.Weather.Application.Services.Interfaces
 {
     public interface IWeatherService
     {
-        Task<IDataResult<List<WeatherDataModel>>> GetAll();
+        Task<IDataResult<List<WeatherDateModel>>> GetAvailableDates();
+
+        Task<IDataResult<List<WeatherDataModel>>> GetWeatherByDay(int year, int month, int day);
     }
 }

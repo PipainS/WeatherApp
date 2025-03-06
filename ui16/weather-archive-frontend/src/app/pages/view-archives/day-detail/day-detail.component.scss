@@ -1,0 +1,39 @@
+.day-detail-container {
+    margin: 1rem;
+  
+    .header {
+      .page-title {
+        font-size: 1.4rem;
+        font-weight: bold;
+      }
+    }
+  
+    .weather-records {
+      .weather-card {
+        .card-body {
+          .record-header {
+            h5 {
+              font-weight: 600;
+            }
+            .status-icon {
+              font-size: 1.5rem;
+              color: #0d6efd;
+            }
+          }
+          .list-group-item {
+            display: flex;
+            align-items: center;
+            i {
+              font-size: 1.2rem;
+              margin-right: 0.5rem;
+              color: #0d6efd;
+            }
+            strong {
+              margin-right: 0.3rem;
+            }
+          }
+        }
+      }
+    }
+  }
+  

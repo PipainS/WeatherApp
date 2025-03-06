@@ -31,17 +31,17 @@ namespace DynamicSun.Weather.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AtmosphericPressure")
-                        .HasColumnType("integer");
+                    b.Property<double>("AtmosphericPressure")
+                        .HasColumnType("decimal(7,2)");
 
-                    b.Property<int>("CloudBaseHeight")
-                        .HasColumnType("integer");
+                    b.Property<double>("CloudBaseHeight")
+                        .HasColumnType("decimal(7,2)");
 
-                    b.Property<int>("Cloudiness")
-                        .HasColumnType("integer");
+                    b.Property<double?>("Cloudiness")
+                        .HasColumnType("decimal(5,2)");
 
                     b.Property<double>("DewPoint")
-                        .HasColumnType("decimal(5,2)");
+                        .HasColumnType("decimal(7,2)");
 
                     b.Property<DateTime>("ObjectCreateDate")
                         .HasColumnType("timestamp with time zone");
@@ -49,30 +49,27 @@ namespace DynamicSun.Weather.Infrastructure.Migrations
                     b.Property<DateTime>("ObjectEditDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("RelativeHumidity")
-                        .HasColumnType("integer");
-
-                    b.Property<double>("Temperature")
+                    b.Property<double>("RelativeHumidity")
                         .HasColumnType("decimal(5,2)");
 
-                    b.Property<int?>("Visibility")
-                        .HasColumnType("integer");
+                    b.Property<double>("Temperature")
+                        .HasColumnType("decimal(7,2)");
+
+                    b.Property<string>("Visibility")
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("WeatherDateTime")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("WeatherPhenomena")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasColumnType("text");
 
                     b.Property<string>("WindDirection")
-                        .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("character varying(10)");
 
-                    b.Property<double>("WindSpeed")
-                        .HasColumnType("decimal(5,2)");
+                    b.Property<double?>("WindSpeed")
+                        .HasColumnType("decimal(7,2)");
 
                     b.HasKey("Id");
 

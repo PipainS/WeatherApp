@@ -1,0 +1,22 @@
+.home-container {
+    min-height: calc(100vh - 120px); 
+    padding: 2rem;
+  
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--dark-gray);
+    }
+  
+    p {
+      font-size: 1.125rem;
+      color: var(--dark-gray);;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+  
+    .btn {
+      min-width: 200px;
+      border-radius: var(--border-radius);
+    }
+  }

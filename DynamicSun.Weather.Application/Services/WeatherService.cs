@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System.Globalization;
+using AutoMapper;
+using DynamicSun.Weather.Application.Constants;
 using DynamicSun.Weather.Application.Models;
 using DynamicSun.Weather.Application.Services.Interfaces;
 using DynamicSun.Weather.Domain.Common;
@@ -18,39 +20,72 @@ namespace DynamicSun.Weather.Application.Services
         private readonly IMapper _mapper = mapper;
         private readonly ILogger<WeatherService> _logger = logger;
 
-        public async Task<IDataResult<List<WeatherDataModel>>> GetAll()
+        public async Task<IDataResult<List<WeatherDateModel>>> GetAvailableDates()
         {
             try
             {
-                var entities = await _uow.GetAll<WeatherData>()
-                    .AsNoTracking()
+                var dbDates = await _uow.GetAll<WeatherData>()
+                    .GroupBy(w => new { w.WeatherDateTime.Year, w.WeatherDateTime.Month })
+                    .Select(g => new { g.Key.Year, g.Key.Month })
+                    .OrderByDescending(x => x.Year)
+                    .ThenByDescending(x => x.Month)
                     .ToListAsync();
 
-                if (entities == null || entities.Count == 0)
+                if (dbDates.Count == 0)
                 {
-                    return DataResult<List<WeatherDataModel>>.Failure(
-                        new DataError("Weather data not found")
-                    );
+                    return DataResult<List<WeatherDateModel>>.Failure(
+                        new DataError("Доступных дат не найдено"));
                 }
 
-                var result = _mapper.Map<List<WeatherDataModel>>(entities);
+                var russianCulture = new CultureInfo(CultureConstants.RussianCulture);
+                var result = dbDates
+                    .GroupBy(x => x.Year)
+                    .Select(g => new WeatherDateModel
+                    {
+                        Year = g.Key,
+                        Months = g.Select(x =>
+                            DateTimeFormatInfo.GetInstance(russianCulture)
+                                .GetMonthName(x.Month))
+                            .Distinct()
+                            .ToList()
+                    })
+                    .ToList();
 
-                if (result == null || result.Count == 0)
+                return DataResult<List<WeatherDateModel>>.Success(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "WeatherService: GetAvailableDates. Database error occurred while fetching available weather dates");
+                return DataResult<List<WeatherDateModel>>.Failure(
+                    new DataError("Ошибка на стороне сервера"));
+            }
+        }
+
+        public async Task<IDataResult<List<WeatherDataModel>>> GetWeatherByDay(int year, int month, int day)
+        {
+            try
+            {
+                var weatherDataList = await _uow.GetAll<WeatherData>()
+                    .AsNoTracking()
+                    .Where(w => w.WeatherDateTime.Year == year &&
+                                w.WeatherDateTime.Month == month &&
+                                w.WeatherDateTime.Day == day)
+                    .ToListAsync();
+
+                if (weatherDataList.Count == 0)
                 {
-                    return DataResult<List<WeatherDataModel>>.Failure(
-                        new DataError("Error processing weather data")
-                    );
+                    return DataResult<List<WeatherDataModel>>.Failure(new DataError("Записи о погоде за выбранный день отсутствуют"));
                 }
+
+                var result = _mapper.Map<List<WeatherDataModel>>(weatherDataList);
 
                 return DataResult<List<WeatherDataModel>>.Success(result);
             }
             catch (Exception ex)
             {
-                // улучшить логи
-                _logger.LogError(ex, "WeatherService Database error occurred while fetching weather data");
-
-                return DataResult<List<WeatherDataModel>>.Failure(
-                    new DataError("Internal server error"));
+                _logger.LogError(ex, "WeatherService: GetAvailableDates" +
+                    "Error occurred while fetching weather data for {Year}-{Month}-{Day}.", year, month, day);
+                return DataResult<List<WeatherDataModel>>.Failure(new DataError("Ошибка на стороне сервера"));
             }
         }
     }
