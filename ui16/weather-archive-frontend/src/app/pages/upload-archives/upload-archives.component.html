@@ -1,12 +1,10 @@
 <div class="upload-archives-container">
-    <h2>Загрузка архивов погодных условий в Москве</h2>
-    <p>Вы можете выбрать один или несколько Excel-файлов. Файлы появятся в списке ниже, где их можно удалить перед отправкой.</p>
+    <h2>{{ 'Загрузка архивов погодных условий в Москве' }}</h2>
+    <p>{{ 'Вы можете выбрать один или несколько Excel-файлов. Файлы появятся в списке ниже, где их можно удалить перед отправкой.' }}</p>
   
-    <!-- Кастомная плашка для выбора файлов -->
     <div class="file-upload-area mb-3" (click)="openFileDialog()">
       <i class="bi bi-cloud-upload"></i>
-      <p>Нажмите, чтобы выбрать файлы или перетащите их сюда</p>
-      <!-- Скрытый input для выбора файлов -->
+      <p>{{ 'Нажмите, чтобы выбрать файлы или перетащите их сюда' }}</p>
       <input
         type="file"
         #fileInput
@@ -17,9 +15,8 @@
       />
     </div>
   
-    <!-- Предварительный список выбранных файлов -->
     <div *ngIf="selectedFiles.length > 0" class="selected-files mb-3">
-      <h5>Выбраны файлы:</h5>
+      <h5 class="mt-0"> {{'Выбраны файлы:'}} </h5>
       <ul class="list-group">
         <li
           class="list-group-item d-flex justify-content-between align-items-center"
@@ -33,13 +30,12 @@
       </ul>
     </div>
   
-    <!-- Кнопка "Отправить" -->
     <button
       class="btn btn-primary"
       [disabled]="selectedFiles.length === 0"
       (click)="submitFiles()"
     >
-      Отправить
+      {{'Отправить'}}
     </button>
   </div>
   

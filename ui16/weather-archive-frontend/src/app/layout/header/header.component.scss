@@ -1,58 +1,42 @@
 .main-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 2rem;
-    background-color: #fafafa; // Очень светлый серый фон
-    border-bottom: 1px solid #eee; // Тонкая граница снизу
-  
+    background-color: var(--primary-bg-color);
+    border-bottom: 1px solid var(--light-gray);
+
     .logo {
-      font-size: 1.5rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: #333;
+        letter-spacing: 2px;
+        color: var(--dark-gray);
     }
-  
-    .nav {
-      display: flex;
-      gap: 2rem; // Расстояние между пунктами меню
-    }
-  
+
     .nav-link {
-      position: relative; // Для использования абсолютного позиционирования псевдоэлемента
-      text-decoration: none;
-      color: #666; // Базовый цвет текста
-      font-size: 1rem;
-      transition: color 0.2s ease;
-  
-      // Эффект при наведении
-      &:hover {
-        color: #000; // Можно чуть затемнить
+        position: relative;
+        text-decoration: none;
+        color: var(--dark-gray);
+        font-size: 1rem;
+        transition: color 0.2s ease;
+
+        &:hover {
+        color: var(--dark-gray); 
         &::after {
-          width: 100%; // При ховере делаем подчеркивание по всей ширине
+            width: 100%; 
         }
-      }
-  
-      // Псевдоэлемент для подчеркивания
-      &::after {
+        }
+
+        &::after {
         content: "";
         position: absolute;
-        bottom: -4px; // Отступ от текста
+        bottom: -4px; 
         left: 0;
         width: 0;
         height: 2px;
-        background-color: #ff5c5c; // Цвет подчеркивания (красноватый)
+        background-color: var(--delete-red);
         transition: width 0.2s ease;
-      }
-  
-      // Класс active, который ставит Angular при совпадении маршрута
-      &.active {
-        color: #000;
-        &::after {
-          width: 100%;
         }
-      }
+
+        &.active {
+        color: var(--dark-gray);
+        &::after {
+            width: 100%;
+        }
+        }
     }
-  }
-  
+}

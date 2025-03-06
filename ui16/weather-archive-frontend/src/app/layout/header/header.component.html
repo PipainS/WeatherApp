@@ -1,18 +1,8 @@
-<header class="main-header">
-    <div class="logo">WEATHER MOSCOW</div>
-    <nav class="nav">
-      <a
-        class="nav-link"
-        routerLink="/home"
-        routerLinkActive="active"
-        >{{ 'Дашборд' }}</a
-      >
-      <a class="nav-link" routerLink="/view-archives" routerLinkActive="active"
-        >{{ 'Просмотр архивов' }}</a
-      >
-      <a class="nav-link" routerLink="/upload-archives" routerLinkActive="active"
-        > {{ 'Загрузка архивов' }}</a
-      >
+<header class="main-header d-flex align-items-center justify-content-between py-3 px-4">
+    <div  routerLink="/home" class="logo f-w-700 f-30 text-uppercase" style="cursor: pointer;"> {{ 'МЕТЕО МОСКВА' }} </div>
+    <nav class="nav d-flex gap-4">
+        <a class="nav-link" routerLink="/home" routerLinkActive="active">{{ 'Дашборд' }}</a>
+        <a class="nav-link" routerLink="/view-archives" routerLinkActive="active">{{ 'Просмотр архивов' }}</a>
+        <a class="nav-link" routerLink="/upload-archives" routerLinkActive="active"> {{ 'Загрузка архивов' }}</a>
     </nav>
-  </header>
-  
+</header>

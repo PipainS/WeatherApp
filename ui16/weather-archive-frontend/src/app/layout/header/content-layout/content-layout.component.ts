@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { BaseComponent } from 'src/app/base/base.component';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-content-layout',

@@ -1,26 +1,22 @@
 .home-container {
     min-height: calc(100vh - 120px); 
-    // 100vh минус примерная высота хедера и футера, если они у вас фиксированы
     padding: 2rem;
   
     h1 {
       font-size: 2.5rem;
-      font-weight: 700;
       margin-bottom: 1rem;
-      color: #333;
+      color: var(--dark-gray);
     }
   
     p {
       font-size: 1.125rem;
-      color: #555;
+      color: var(--dark-gray);;
       max-width: 600px;
       margin: 0 auto 2rem;
     }
   
     .btn {
       min-width: 200px;
-      border-radius: 20px;
-      // Немного увеличим минимальную ширину кнопок для аккуратного вида
+      border-radius: var(--border-radius);
     }
   }
-  
