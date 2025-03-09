@@ -8,46 +8,48 @@ namespace DynamicSun.Weather.Infrastructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<WeatherData> builder)
         {
-            builder.ToTable("WeatherData"); // Название таблицы в БД
+            builder.ToTable("WeatherData");
 
-            builder.HasKey(w => w.Id); // Первичный ключ
+            builder.HasKey(w => w.Id);
 
             builder.Property(w => w.WeatherDateTime)
+                   .HasColumnType("timestamp without time zone")
                    .IsRequired();
 
             builder.Property(w => w.Temperature)
-                   .HasColumnType("decimal(5,2)") // Два знака после запятой
+                   .HasColumnType("decimal(7,2)")
                    .IsRequired();
 
             builder.Property(w => w.RelativeHumidity)
+                   .HasColumnType("decimal(5,2)")
                    .IsRequired();
 
             builder.Property(w => w.DewPoint)
-                   .HasColumnType("decimal(5,2)")
+                   .HasColumnType("decimal(7,2)")
                    .IsRequired();
 
             builder.Property(w => w.AtmosphericPressure)
+                   .HasColumnType("decimal(7,2)")
                    .IsRequired();
 
             builder.Property(w => w.WindDirection)
-                   .HasMaxLength(10) // Ограничим длину строки
-                   .IsRequired();
+                   .HasMaxLength(10);
 
             builder.Property(w => w.WindSpeed)
-                   .HasColumnType("decimal(5,2)")
-                   .IsRequired();
+                   .HasColumnType("decimal(7,2)")
+                   .IsRequired(false);
 
             builder.Property(w => w.Cloudiness)
-                   .IsRequired();
+                   .HasColumnType("decimal(5,2)")
+                   .IsRequired(false);
 
             builder.Property(w => w.CloudBaseHeight)
+                   .HasColumnType("decimal(7,2)")
                    .IsRequired();
 
-            builder.Property(w => w.Visibility)
-                   .IsRequired(false); // Может быть null
+            builder.Property(w => w.Visibility);
 
-            builder.Property(w => w.WeatherPhenomena)
-                   .HasMaxLength(50); // Достаточно для описания погоды
+            builder.Property(w => w.WeatherPhenomena);
         }
     }
 }

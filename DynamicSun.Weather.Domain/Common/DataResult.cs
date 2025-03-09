@@ -2,12 +2,13 @@
 
 namespace DynamicSun.Weather.Domain.Common
 {
-    // Реализация результата с использованием record для иммутабельности
     public record DataResult<T> : IDataResult<T>
     {
         public T? Data { get; init; }
+
         public IReadOnlyList<IDataError> Errors { get; init; } = Array.Empty<IDataError>();
-        public bool IsSuccess => !Errors.Any();
+
+        public bool IsSuccess => Errors.Count == 0;
 
         private DataResult() { }
 

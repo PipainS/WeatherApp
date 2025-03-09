@@ -1,6 +1,9 @@
-﻿using DynamicSun.Weather.Application.Mapping;
+﻿using DynamicSun.Weather.Application.Constants;
+using DynamicSun.Weather.Application.Mapping;
 using DynamicSun.Weather.Application.Services;
 using DynamicSun.Weather.Application.Services.Interfaces;
+using DynamicSun.Weather.Infrastructure.Excel;
+using DynamicSun.Weather.Infrastructure.Excel.Interfaces;
 using DynamicSun.Weather.Infrastructure.Persistence;
 using DynamicSun.Weather.Infrastructure.Persistence.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +17,7 @@ namespace DynamicSun.Weather.WebUI.Context
         {
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowAllOrigins",
+                options.AddPolicy(AppConstants.CorsPolicyName,
                     builder =>
                     {
                         builder.AllowAnyOrigin()
@@ -23,39 +26,22 @@ namespace DynamicSun.Weather.WebUI.Context
                     });
             });
 
-            // Регистрация контроллеров
             services.AddControllers();
 
-            // Регистрация Swagger
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
 
             services.AddAutoMapper(typeof(MappingProfile));
 
-
-            // Подключение к PostgreSQL
-            services.AddDbContext<WeatherDbContext>(options =>
+            services.AddDbContext<WeatherDbContext>(options =>  
             {
-                options.UseNpgsql(configuration.GetConnectionString("WeatherDbContext"));
+                options.UseNpgsql(configuration.GetConnectionString(AppConstants.WeatherDbContext));
             });
 
-            // Регистрация Unit of Work
             services.AddScoped<IUnitOfWork, WeatherDbContext>();
-
-            // Регистрация контекста базы данных
-            //services.AddDbContext<LogisticsDbContext>(options =>
-            //{
-            //    options.UseNpgsql(configuration.GetConnectionString(nameof(LogisticsDbContext)));
-            //});
-
-            //services.AddAutoMapper(typeof(MappingProfile));
-
-            // Регистрация и сервисов
-            //services.AddScoped<IUnitOfWork, LogisticsDbContext>();
-            //services.AddScoped<ILogisticsService, LogisticsService>();
-            //services.AddScoped<IRfidTagService, RfidTagService>();
-            //services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IWeatherService, WeatherService>();
+            services.AddScoped<IWeatherArchiveService, WeatherArchiveService>();
+            services.AddScoped<IExcelReader, ExcelReader>();
         }
 
         public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -69,7 +55,7 @@ namespace DynamicSun.Weather.WebUI.Context
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseRouting();
-            app.UseCors("AllowAllOrigins");
+            app.UseCors(AppConstants.CorsPolicyName);
 
             app.UseAuthorization();
 
@@ -77,7 +63,6 @@ namespace DynamicSun.Weather.WebUI.Context
             {
                 endpoints.MapControllers();
             });
-
         }
     }
 }

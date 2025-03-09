@@ -1,27 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using DynamicSun.Weather.Domain;
 using DynamicSun.Weather.Infrastructure.Persistence.Interfaces;
 using DynamicSun.Weather.Domain.Base;
+using DynamicSun.Weather.Infrastructure.Exceptions;
 
 namespace DynamicSun.Weather.Infrastructure.Persistence
 {
-    public abstract class AppDbContext : DbContext, IUnitOfWork
+    public abstract class AppDbContext(DbContextOptions options) : DbContext(options), IUnitOfWork
     {
-        protected AppDbContext(DbContextOptions options) : base(options)
-        {
-        }
-
         public IQueryable<T> GetAll<T>() where T : PersistentObject
         {
             return Set<T>().AsQueryable();
-        }
-
-        public async Task<T> GetAsync<T>(int entityId) where T : PersistentObject
-        {
-            return await Set<T>().FindAsync(entityId);
         }
 
         public void AddRangeOnSubmit<T>(IEnumerable<T> entities) where T : PersistentObject
@@ -37,19 +25,17 @@ namespace DynamicSun.Weather.Infrastructure.Persistence
             }
             catch (DbUpdateConcurrencyException ex)
             {
-                // Логируем и пробрасываем
-                throw new Exception("Ошибка конкурентного обновления", ex);
+                throw new WeatherConcurrencyException("Ошибка конкурентного обновления", ex);
             }
             catch (DbUpdateException ex)
             {
-                throw new Exception("Ошибка обновления базы данных", ex);
+                throw new WeatherDbUpdateException("Ошибка обновления базы данных", ex);
             }
             catch (Exception ex)
             {
-                throw new Exception("Ошибка при сохранении данных", ex);
+                throw new WeatherDataSavingException("Ошибка при сохранении данных", ex);
             }
         }
-
     }
 }
 
