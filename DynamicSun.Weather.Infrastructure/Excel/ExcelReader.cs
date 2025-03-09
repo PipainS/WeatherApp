@@ -3,10 +3,10 @@ using NPOI.XSSF.UserModel;
 using NPOI.HSSF.UserModel;
 using DynamicSun.Weather.Domain.Common;
 using DynamicSun.Weather.Domain.Entities;
-using DynamicSun.Weather.Application.Services.Interfaces;
 using DynamicSun.Weather.Infrastructure.Excel.Parsers;
 using Microsoft.Extensions.Logging;
 using DynamicSun.Weather.Infrastructure.Excel.Constants;
+using DynamicSun.Weather.Infrastructure.Excel.Interfaces;
 
 namespace DynamicSun.Weather.Infrastructure.Excel
 {

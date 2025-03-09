@@ -21,10 +21,6 @@ namespace DynamicSun.Weather.Infrastructure.Excel.Parsers
         private static bool TryParseValue<T>(ICell? cell, string fieldName, List<IDataError> errors, int rowNum, out T value,
                                              TryParseDelegate<T> tryParseFunc, bool isOptional)
         {
-            if (rowNum == 47)
-            {
-                Console.WriteLine("");
-            }
             value = default!;
             var str = ExcelCellValueHelper.GetCellStringValue(cell)?.Replace(',', '.') ?? string.Empty;
 

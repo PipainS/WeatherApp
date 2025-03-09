@@ -17,34 +17,34 @@ namespace DynamicSun.Weather.Infrastructure.Persistence.Configurations
                    .IsRequired();
 
             builder.Property(w => w.Temperature)
-                   .HasColumnType("decimal(7,2)") // Изменено с decimal(5,2) на decimal(7,2)
+                   .HasColumnType("decimal(7,2)")
                    .IsRequired();
 
             builder.Property(w => w.RelativeHumidity)
-                   .HasColumnType("decimal(5,2)") // Это вполне подходяще для влажности
+                   .HasColumnType("decimal(5,2)")
                    .IsRequired();
 
             builder.Property(w => w.DewPoint)
-                   .HasColumnType("decimal(7,2)") // Изменено с decimal(5,2) на decimal(7,2)
+                   .HasColumnType("decimal(7,2)")
                    .IsRequired();
 
             builder.Property(w => w.AtmosphericPressure)
-                   .HasColumnType("decimal(7,2)") // Изменено с decimal(5,2) на decimal(7,2)
+                   .HasColumnType("decimal(7,2)")
                    .IsRequired();
 
             builder.Property(w => w.WindDirection)
                    .HasMaxLength(10);
 
             builder.Property(w => w.WindSpeed)
-                   .HasColumnType("decimal(7,2)") // Изменено с decimal(5,2) на decimal(7,2)
+                   .HasColumnType("decimal(7,2)")
                    .IsRequired(false);
 
             builder.Property(w => w.Cloudiness)
-                   .HasColumnType("decimal(5,2)") // Для облачности достаточно decimal(5,2)
+                   .HasColumnType("decimal(5,2)")
                    .IsRequired(false);
 
             builder.Property(w => w.CloudBaseHeight)
-                   .HasColumnType("decimal(7,2)") // Изменено с decimal(5,2) на decimal(7,2)
+                   .HasColumnType("decimal(7,2)")
                    .IsRequired();
 
             builder.Property(w => w.Visibility);

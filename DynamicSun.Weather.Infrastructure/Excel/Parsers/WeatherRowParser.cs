@@ -14,7 +14,6 @@ namespace DynamicSun.Weather.Infrastructure.Excel.Parsers
             var errors = new List<IDataError>();
             var data = new WeatherData();
 
-            // Дата и время
             var dateStr = ExcelCellValueHelper.GetCellStringValue(row.GetCell(WeatherRowParserConstants.DateCell));
             var timeStr = ExcelCellValueHelper.GetCellStringValue(row.GetCell(WeatherRowParserConstants.TimeCell));
             if (!DateTime.TryParseExact($"{dateStr} {timeStr}",
@@ -35,16 +34,26 @@ namespace DynamicSun.Weather.Infrastructure.Excel.Parsers
             }
             data.WeatherDateTime = dateTime;
 
+            //foreach (var (cellIndex, paramName) in WeatherFieldMappings.FieldNames)
+            //{
+            //    if (WeatherFieldMappings.NumericFields.TryGetValue(cellIndex, out var setter))
+            //    {
+            //        if (ExcelValueParser.TryParseDouble(row.GetCell(cellIndex), paramName, errors, row.RowNum, out double value, true))
+            //        {
+            //            setter(data, value);
+            //        }
+            //    }
+            //}
+
             foreach (var (cellIndex, paramName) in WeatherFieldMappings.FieldNames)
             {
-                if (WeatherFieldMappings.NumericFields.TryGetValue(cellIndex, out var setter))
+                if (WeatherFieldMappings.NumericFields.TryGetValue(cellIndex, out var setter) &&
+                    ExcelValueParser.TryParseDouble(row.GetCell(cellIndex), paramName, errors, row.RowNum, out double value, true))
                 {
-                    if (ExcelValueParser.TryParseDouble(row.GetCell(cellIndex), paramName, errors, row.RowNum, out double value, true))
-                    {
-                        setter(data, value);
-                    }
+                    setter(data, value);
                 }
             }
+
 
             data.WindDirection = ExcelCellValueHelper.GetCellStringValue(row.GetCell(WeatherRowParserConstants.WindDirectionCell));
             data.Visibility = ExcelCellValueHelper.GetCellStringValue(row.GetCell(WeatherRowParserConstants.VisibilityCell));
