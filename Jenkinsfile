@@ -6,8 +6,8 @@ pipeline {
     }
 
     environment {
-        // Путь к папке с тестами
         TESTS_DIR = 'api-tests'
+        DOTNET_SYSTEM_GLOBALIZATION_INVARIANT = '1'
     }
 
     stages {
