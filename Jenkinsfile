@@ -20,7 +20,7 @@ pipeline {
                 // Скачиваем второй репозиторий (Java тесты) в подпапку
                 dir("${env.TESTS_DIR}") {
                     checkout([$class: 'GitSCM', 
-                        branches: [[name: 'main']], 
+                        branches: [[name: 'master']], 
                         userRemoteConfigs: [[url: 'https://github.com/ilyentiy1/weatherTests']]
                     ])
                 }
