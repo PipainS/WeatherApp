@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        dotnetsdk 'dotnet 8' 
+    }
+
     environment {
         // Путь к папке с тестами
         TESTS_DIR = 'api-tests'
